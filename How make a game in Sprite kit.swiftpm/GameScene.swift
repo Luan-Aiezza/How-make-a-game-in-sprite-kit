@@ -52,8 +52,9 @@ class GameScene: SKScene {
         player.setScale(5)
         
         // Ajuste as máscaras de categoria
-        player.spriteNode.physicsBody?.categoryBitMask = 0x1 << 1 // Player
-        player.spriteNode.physicsBody?.contactTestBitMask = 0x1 << 2 // Detecção de contato com NPC
+    
+        player.physicsBody?.categoryBitMask = 0x1 << 1 // Player
+        player.physicsBody?.contactTestBitMask = 0x1 << 2 // Detecção de contato com NPC
         
         addChild(player)
         
@@ -62,8 +63,9 @@ class GameScene: SKScene {
         npc.position = CGPoint(x: 700, y: 0)
         npc.setScale(5)
         
-        npc.spriteNode.physicsBody?.categoryBitMask = 0x1 << 2 // NPC
-        npc.spriteNode.physicsBody?.contactTestBitMask = 0x1 << 1 // Detecção de contato com Player
+        npc.physicsBody?.categoryBitMask = 0x1 << 2 // NPC
+        npc.physicsBody?.contactTestBitMask = 0x1 << 1 // Detecção de contato com Player
+        npc.physicsBody?.isDynamic = false
         
         addChild(npc)
         
@@ -143,11 +145,11 @@ class GameScene: SKScene {
 extension GameScene: @preconcurrency SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         // Identifica os corpos em contato
-        let bodyA = contact.bodyA.node as? SKSpriteNode
-        let bodyB = contact.bodyB.node as? SKSpriteNode
+        let bodyA = contact.bodyA.node
+        let bodyB = contact.bodyB.node
         
-        if (bodyA == player.spriteNode && bodyB == npc.spriteNode) ||
-           (bodyB == player.spriteNode && bodyA == npc.spriteNode) {
+        if (bodyA == player && bodyB == npc) ||
+           (bodyB == player && bodyA == npc) {
             // Mostra o balão de diálogo quando há contato
             npc.showDialogBalloon()
             playNpcSound(named: "npc_interaction.mp3")
@@ -157,11 +159,11 @@ extension GameScene: @preconcurrency SKPhysicsContactDelegate {
     
     func didEnd(_ contact: SKPhysicsContact) {
         // Identifica os corpos que terminaram o contato
-        let bodyA = contact.bodyA.node as? SKSpriteNode
-        let bodyB = contact.bodyB.node as? SKSpriteNode
+        let bodyA = contact.bodyA.node
+        let bodyB = contact.bodyB.node
         
-        if (bodyA == player.spriteNode && bodyB == npc.spriteNode) ||
-           (bodyB == player.spriteNode && bodyA == npc.spriteNode) {
+        if (bodyA == player && bodyB == npc) ||
+           (bodyB == player && bodyA == npc) {
             // Remove o balão de diálogo quando o contato termina
             npc.hideDialogBalloon()
             /*self.camera?.isPaused = false*/ //CHECAR DEPOIS
