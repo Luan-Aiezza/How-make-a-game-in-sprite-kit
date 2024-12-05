@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "How make a game in Sprite kit",
+    name: "Workshop SpriteKit",
     platforms: [
         .iOS("16.0")
     ],
     products: [
         .iOSApplication(
-            name: "How make a game in Sprite kit",
+            name: "Workshop SpriteKit",
             targets: ["AppModule"],
             bundleIdentifier: "mooncat.How-make-a-game-in-Sprite-kit",
             teamIdentifier: "K4H4UFJU24",
