@@ -18,9 +18,23 @@ class GameScene: SKScene {
     var isMovingRight = false
     var isMovingLeft = false
     
+    let background = SKSpriteNode(imageNamed: "background1")
+    let pedra = SKSpriteNode(imageNamed: "preda")
+    
     //Funcão principal
     override func didMove(to view: SKView) {
+        
         physicsWorld.contactDelegate = self // Delegado para detecção de contato
+        
+        background.position = CGPoint(x: 0, y: 300)
+        background.setScale(1)
+        background.texture?.filteringMode = .nearest
+        addChild(background)
+        
+        pedra.position = CGPoint(x: -316, y: -16)
+        pedra.setScale(6)
+        pedra.texture?.filteringMode = .nearest
+        addChild(pedra)
 
         // Configurar música de fundo
         playBackgroundMusic(named: "background_music.mp3")
@@ -60,7 +74,7 @@ class GameScene: SKScene {
         
         //NPC: aqui instanciamos o nosso NPC na cena
         npc = NPC(idleTextures: npcTextures, walkTextures: npcTextures)
-        npc.position = CGPoint(x: 700, y: 0)
+        npc.position = CGPoint(x: 600, y: 0)
         npc.setScale(5)
         
         npc.physicsBody?.categoryBitMask = 0x1 << 2 // NPC
@@ -106,13 +120,16 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         self.camera?.run(.moveTo(x: player?.position.x ?? 0, duration: 0.3))
         
-//        print(player.position.x)
-        
         // Move o jogador com base no estado dos toques
         if isMovingRight {
-            player.move(direction: CGVector(dx: 100 * CGFloat(3.0/60.0), dy: 0))
+            player.move(direction: CGVector(dx: 100 * CGFloat(3.0 / 60.0), dy: 0))
         } else if isMovingLeft {
-            player.move(direction: CGVector(dx: -100 * CGFloat(3.0/60.0), dy: 0))
+            // Verifica se o jogador está prestes a ultrapassar o limite
+            if player.position.x > -280 {
+                player.move(direction: CGVector(dx: -100 * CGFloat(3.0 / 60.0), dy: 0))
+            } else {
+                player.stop()
+            }
         } else {
             // Para o movimento quando não há input
             player.stop()
