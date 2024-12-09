@@ -20,17 +20,15 @@ let package = Package(
             teamIdentifier: "K4H4UFJU24",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .cloud),
+            appIcon: .placeholder(icon: .moon),
             accentColor: .presetColor(.purple),
             supportedDeviceFamilies: [
                 .pad,
                 .phone
             ],
             supportedInterfaceOrientations: [
-                .portrait,
                 .landscapeRight,
-                .landscapeLeft,
-                .portraitUpsideDown(.when(deviceFamilies: [.pad]))
+                .landscapeLeft
             ]
         )
     ],
@@ -42,6 +40,5 @@ let package = Package(
                 .process("Resources")
             ]
         )
-    ],
-    swiftLanguageVersions: [.version("6")]
+    ]
 )

@@ -15,6 +15,6 @@ class NPC: Character {
     
     func hideDialogBalloon() {
         dialogBalloon?.removeFromParent()
-        dialogBalloon = nil
+        dialogBalloon = nil//Não há nada aqui
     }
 }

@@ -1,6 +1,6 @@
 import SpriteKit
 
-// Classe base
+// Classe base mae
 class Character: SKNode {
     //Todos os 'Personagens' possuem atributos
     let spriteNode: SKSpriteNode //Um sprite atrelado
