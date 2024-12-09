@@ -19,7 +19,7 @@ class GameScene: SKScene {
     var isMovingLeft = false
     
     let background = SKSpriteNode(imageNamed: "background1")
-    let pedra = SKSpriteNode(imageNamed: "preda")
+    let pedra = SKSpriteNode(imageNamed: "pedra")
     
     //Funcão principal
     override func didMove(to view: SKView) {
