@@ -73,7 +73,7 @@ class GameScene: SKScene {
         addChild(player)
         
         //NPC: aqui instanciamos o nosso NPC na cena
-        npc = NPC(idleTextures: npcTextures, walkTextures: npcTextures)
+        npc = NPC(idleTextures: npcTextures)
         npc.position = CGPoint(x: 600, y: 0)
         npc.setScale(5)
         

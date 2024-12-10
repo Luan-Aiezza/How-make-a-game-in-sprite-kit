@@ -1,17 +1,16 @@
 import SpriteKit
 
-// Classe base mae
-class Character: SKNode {
+class NPC: SKNode {
+    private var dialogBalloon: SKSpriteNode?
+    
     //Todos os 'Personagens' possuem atributos
     let spriteNode: SKSpriteNode //Um sprite atrelado
     let idleAnimation: [SKTexture] //Uma animação parado
-    let walkAnimation: [SKTexture] //Uma animacão em movimento
     
     //O esqueleto dos atributos é iniciado
-    init(idleTextures: [SKTexture], walkTextures: [SKTexture]) {
+    init(idleTextures: [SKTexture]) {
         self.spriteNode = SKSpriteNode(texture: idleTextures.first)
         self.idleAnimation = idleTextures
-        self.walkAnimation = walkTextures
         
         super.init()
         addChild(spriteNode)
@@ -38,8 +37,18 @@ class Character: SKNode {
         spriteNode.run(SKAction.repeatForever(SKAction.animate(with: idleAnimation, timePerFrame: 0.1)))
     }
     
-    func playWalkAnimation() {
-        spriteNode.run(SKAction.repeatForever(SKAction.animate(with: walkAnimation, timePerFrame: 0.1)))
+    func showDialogBalloon() {
+        // Certifique-se de criar o balão apenas uma vez
+        if dialogBalloon == nil {
+            dialogBalloon = SKSpriteNode(imageNamed: "ballon")
+            dialogBalloon?.position = CGPoint(x: 0, y: spriteNode.size.height * 1.5) // Acima do NPC
+            dialogBalloon?.texture?.filteringMode = .nearest
+            addChild(dialogBalloon!)
+        }
+    }
+    
+    func hideDialogBalloon() {
+        dialogBalloon?.removeFromParent()
+        dialogBalloon = nil//Não há nada aqui
     }
 }
-
